@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Citation-Aware RAG</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="app-header">
+    <span class="app-title">📚 Citation-Aware RAG</span>
+    <span class="app-subtitle">Ask a question, click a citation, see the exact source</span>
+  </header>
+
+  <div class="layout">
+    <section class="chat-panel">
+      <div id="messages" class="messages">
+        <div class="empty-state">Ask something about the loaded PDFs to get started.</div>
+      </div>
+      <form id="ask-form">
+        <input id="question" type="text" placeholder="Ask a question..." autocomplete="off" />
+        <button type="submit" id="ask-button">Ask</button>
+      </form>
+    </section>
+
+    <section class="pdf-panel">
+      <div class="pdf-toolbar">
+        <select id="document-picker"></select>
+        <span id="page-indicator" class="page-indicator"></span>
+      </div>
+      <div id="pdf-container" class="pdf-container"></div>
+    </section>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

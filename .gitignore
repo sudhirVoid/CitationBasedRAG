@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# Project
+.pytest_cache/
+.coverage
+htmlcov/
+.env
+
+# Editor
+.vscode/
