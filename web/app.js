@@ -154,7 +154,11 @@ function onPagesIntersecting(entries) {
 
 async function renderPageIfNeeded(pageNumber) {
   const pw = pageWrappers[pageNumber - 1];
-  if (!pw || pw.rendered) return;
+  if (!pw) return;
+  if (pw.rendered) {
+    drawHighlightIfQueued(pageNumber);
+    return;
+  }
   pw.rendered = true; // set before await so scroll events don't trigger a double render
 
   const page = await pdfDoc.getPage(pageNumber);
@@ -198,7 +202,9 @@ async function showCitation(citation) {
   citation.highlights.forEach((h) => { pendingHighlights[h.page] = h; });
 
   const firstPage = citation.highlights[0].page;
-  await renderPageIfNeeded(firstPage); // force-render even if not yet scrolled into view
+  // Render every cited page now. This matters when the citation spans pages
+  // in the PDF that are not currently inside the scroll viewport.
+  await Promise.all(citation.highlights.map((highlight) => renderPageIfNeeded(highlight.page)));
   pageWrappers[firstPage - 1].wrapper.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
